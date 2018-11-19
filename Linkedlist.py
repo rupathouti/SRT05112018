@@ -7,8 +7,8 @@ class Node:
   def getNextNode(self):
     return self.nextNode
 
-  def getPrevNode(self):
-    return self.prevNode
+  # def getPrevNode(self):
+  #   return self.prevNode
 
 class LinkedList:
 
@@ -16,17 +16,48 @@ class LinkedList:
     self.head = head
     self.tail = tail
 
-  def insertAt(self, prevNode, data): 
+  # def insertAt(self, prevNode, data): 
   
-    if (prevNode == None): 
-      print "The given previous node must inLinkedList."
-      return
-    new_node = Node(data) 
+  #   if (prevNode == None): 
+  #     print "The given previous node must inLinkedList."
+  #     return
+  #   new_node = Node(data) 
   
-    new_node.nextNode = prevNode.getNextNode
+  #   new_node.nextNode = prevNode.getNextNode
   
-    prevNode.nextNode = new_node 
+  #   prevNode.nextNode = new_node 
+  def get_no_of_nodes(self):
+    curr_node = self.head
 
+    no_of_nodes = 0
+    
+    while curr_node != None:
+      curr_node = curr_node.getNextNode()
+      no_of_nodes = no_of_nodes + 1
+
+    return no_of_nodes
+
+  def InsertAt(self,position,new_data):
+    if (position <= self.get_no_of_nodes() + 1):
+      curr_node = self.head
+
+
+      temp_pos = 1
+      while temp_pos != position:
+        curr_node =  curr_node.getNextNode()
+        temp_pos = temp_pos + 1
+
+      new_node = Node(new_data, self.head)
+
+      new_node.nextNode = curr_node.nextNode
+      new_node.prevNode = curr_node
+
+      curr_node.nextNode = new_node
+      curr_node.nextNode.prevNode = curr_node
+
+    else:
+      print("There is no given position in the given Doubly Linked list")
+      
   def AddToBack(self, data):
     if (self.head == None):
       new_node = Node(data,self.head)
@@ -41,6 +72,7 @@ class LinkedList:
   def AddToFront(self, data):
     if (self.head == None):
       new_node = Node(data)
+      
       self.head = new_node
       self.tail = new_node
     else:
@@ -58,14 +90,18 @@ class LinkedList:
 
     # for item in list_items:
     #   print(item)
-
+  
+  def PrintBackward(self):
+    self.PrintReverse(self.head)
+    
     
 
-  def PrintBackward(self):
-    if (self.head == None):
-      return
-    PrintBackward(head.getNextNode)
-    print(self.head.data)
+  # def PrintBackward(self):
+  #   if (self.head == None):
+  #     return
+  #   new_node = Node(data)
+  #   new_node.reverse(head.getNextNode)
+  #   print(self.head.data)
     # curr_node = self.head
     # list_items = []
     # while curr_node != None:
@@ -74,12 +110,18 @@ class LinkedList:
 
     # for item in list_items[::-1]:
     #   print(item)
-    
+
   def Removeatfront(self): 
   
     if self.head != None: 
       self.head = self.head.nextNode
 
+
+  def PrintReverse(self,currentNode): 
+    if currentNode == None:#Checking for ta
+      return
+    self.PrintReverse(currentNode.getNextNode())
+    print(currentNode.data)
 
   def Removeatend(self): 
     if self.head != None:
@@ -90,15 +132,7 @@ class LinkedList:
         while curr_node.nextNode.nextNode != None:
           curr_node = curr_node.getNextNode()
         curr_node.nextNode = None
-    # if self.head != None: 
-    #   self.head = self.head.nextNode
-    # else:
-    #   temp = temp.nextNode
     
-    #   nextNode = temp.nextNode.nextNode
-  
-    #   temp.nextNode = None
-    #   temp.nextNode = nextNode 
 
 myList = LinkedList()
 
@@ -109,20 +143,14 @@ myList.AddToBack(10)
 myList.AddToBack(11)
 print("Printing forward now")
 myList.PrintForward() 
-# print("Printing backward now")
-# myList.PrintBackward()
+print("Printing backward now")
+
+myList.PrintBackward()
+#myList.PrintBackward(myList.head)
 print("****")
-myList.insertAt(1,10)
+# myList.insertAt(1,10)
 # myList.Removeatfront()
 # myList.Removeatend()
-print("****")
+# print("****")
 
-myList.PrintForward() 
-
-
-
-
-
-
-
-
+# myList.PrintForward() 
