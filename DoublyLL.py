@@ -47,20 +47,20 @@ class LinkedList:
 
     if self.head == None:
       print("linked list is empty")
-    
-    while curr_node != None:
-      print(curr_node.data)
-      curr_node = curr_node.getNextNode()
+    else:
+      while curr_node != None:
+        print(curr_node.data)
+        curr_node = curr_node.getNextNode()
   
   def PrintBackward(self):
     curr_node = self.tail
 
     if self.head == None:
       print("linked list is empty")
-    
-    while curr_node != None:
-      print(curr_node.data)
-      curr_node = curr_node.getPrevNode()
+    else:
+      while curr_node != None:
+        print(curr_node.data)
+        curr_node = curr_node.getPrevNode()
     
   def InsertAfter(self,data,new_data):
     curr_node = self.head
@@ -74,9 +74,12 @@ class LinkedList:
         curr_node.nextNode = new_node
         curr_node.nextNode.prevNode = curr_node
 
-        brea
+        break
 
       curr_node = curr_node.getNextNode()
+
+    print("Value after which you need to insert is not exist in list")
+    return False
 
   def InsertBefore(self,data,new_data):
     curr_node = self.head
@@ -91,6 +94,37 @@ class LinkedList:
         break
       
       curr_node = curr_node.getNextNode()
+    
+    print("Value after which you need to insert is not exist in list")
+    return False
+
+  def ReplaceValue(self,data,new_data):
+    curr_node = self.head
+
+    while curr_node != None:
+      if (curr_node.data == data):
+        curr_node.data = new_data
+        #If you want to replace only first data in list then you need to write break
+      curr_node = curr_node.getNextNode() #Replaces all the similar values in the linked list
+    
+  def ReplaceAtPos(self,pos,new_data):
+    curr_node = self.head
+    index = 1
+    if pos == 1:
+      self.head.data = new_data
+      return True
+    else:
+      while curr_node != None: 
+        if index == pos:
+          curr_node.data = new_data
+          return True
+
+        curr_node = curr_node.getNextNode()
+        index = index + 1
+
+    print("Position does not exist in the linked list")
+    return False
+
 
   def InsertAtPos(self,pos,new_data):
     curr_node = self.head
@@ -104,6 +138,7 @@ class LinkedList:
         curr_node.prevNode = new_node
         self.head = new_node
         return True
+
       elif index == pos:
         new_node = Node(new_data)
         new_node.prevNode = curr_node.prevNode
@@ -115,7 +150,7 @@ class LinkedList:
       curr_node = curr_node.getNextNode()
       index = index+1
 
-    print("Position exceeded the list")
+    print("Position does not exist in the linked list")
     return False
 
   def Removeatfront(self): 
@@ -129,7 +164,7 @@ class LinkedList:
       print("linked list is empty")
     elif self.head.nextNode == None:
       self.head = None
-      self.tail = Noneas
+      self.tail = None
     else: 
       self.tail.prevNode.nextNode = None
       self.tail = self.tail.prevNode
@@ -162,11 +197,9 @@ myList.AddToBack(7)
 myList.AddToBack(1)
 myList.AddToBack(10)
 myList.AddToBack(11)
-myList.AddToBack(12)
-
-print("Printing forward now")
+myList.AddToBack(7)
+myList.AddToBack(10)
 myList.PrintForward() 
-print("****************")
-myList.Removeatpos(1)
-myList.PrintForward()
-
+print("***********************")
+myList.ReplaceValue(10,99)
+myList.PrintForward() 
